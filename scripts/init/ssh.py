@@ -1,4 +1,4 @@
-# SSH Config: KeepAlive, PersistWindow
+# SSH Config: KeepAlive
 
 import os
 from datetime import datetime
