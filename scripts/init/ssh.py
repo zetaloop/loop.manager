@@ -44,6 +44,7 @@ for item in items:
             # If it's the first occurrence, replace the line with the desired setting
             if not exist:
                 content[i] = item
+                exist = True
             # If it's not the first occurrence, comment out the line
             else:
                 content[i] = '# ' + ln
