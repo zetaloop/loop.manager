@@ -11,7 +11,7 @@ ssh = '/etc/ssh/sshd_config'
 
 # Inform the user about the backup creation process.
 # The source is sshd_config and the destination is sshd_config appended with the current time.
-print(f'Creating Backup... {ssh} >>> {ssh}_{time}.bak')
+print(f'Creating backup... {ssh} >>> {ssh}_{time}.bak')
 
 # Use the os.system function to run a shell command that copies the sshd_config file to a backup file
 os.system(f'cp {ssh} {ssh}_{time}.bak')
@@ -23,7 +23,7 @@ with open(ssh, 'r') as f:
     content = f.readlines()
 
 # Define the desired settings as a multiline string and split it into a list of lines
-items = [i for i in '''
+items = [i + '\n' for i in '''
 TCPKeepAlive no
 ServerAliveInterval 3
 ServerAliveCountMax 20
