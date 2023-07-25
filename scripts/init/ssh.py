@@ -61,5 +61,5 @@ with open(ssh, 'w') as f:
 print(f'Show diff... {ssh} <<< {ssh}_{time}.bak')
 os.system(f'diff {ssh} {ssh}_{time}.bak')
 
-prinr('Reloading sshd...')
+print('Reloading sshd...')
 os.system('systemctl reload sshd')
