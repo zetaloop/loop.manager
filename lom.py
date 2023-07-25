@@ -10,7 +10,7 @@ def scan_subdirectories(directory):
         item_path = os.path.join(directory, item)
         if os.path.isdir(item_path):
             subdirectories.append(item)
-    return subdirectories
+    return sorted(subdirectories)
 
 def scan_scripts(directory):
     scripts = []
@@ -18,7 +18,7 @@ def scan_scripts(directory):
         for file in files:
             if file.endswith('.sh') or file.endswith('.py'):
                 scripts.append(os.path.join(root, file))
-    return scripts
+    return sorted(scripts)
 
 def execute_script(script_path):
     if script_path.endswith('.py'):
