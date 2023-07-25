@@ -25,11 +25,8 @@ with open(ssh, 'r') as f:
 # Define the desired settings as a multiline string and split it into a list of lines
 items = [i + '\n' for i in '''
 TCPKeepAlive no
-ServerAliveInterval 3
-ServerAliveCountMax 20
-ControlMaster auto
-ControlPath ~/.ssh/connection-%r@%h:%p
-ControlPersist 12h
+ClientAliveInterval 3
+ClientAliveCountMax 20
 '''.split('\n') if i]
 
 # Loop over the lines in the settings list
