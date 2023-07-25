@@ -17,6 +17,7 @@ print(f'Creating Backup... {ssh} >>> {ssh}_{time}.bak')
 os.system(f'cp {ssh} {ssh}_{time}.bak')
 
 # Open the sshd_config file in read mode
+print(f'Reading {ssh}...')
 with open(ssh, 'r') as f:
     # Read the lines of the sshd_config file into a list
     content = f.readlines()
@@ -51,6 +52,10 @@ for item in items:
         content.append(item)
 
 # Open the sshd_config file in write mode
+print(f'Writing {ssh}...')
 with open(ssh, 'w') as f:
     # Write the modified content back into the sshd_config file
     f.writelines(content)
+
+print(f'Show diff... {ssh} <<< {ssh}_{time}.bak')
+os.system(f'diff {ssh} {ssh}_{time}.bak')
