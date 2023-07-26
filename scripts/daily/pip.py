@@ -14,6 +14,7 @@ for i in jsondata:
 print('-' * 16)
 
 packages = allpackages
+errorpackages = []
 while True:
     print('Try updating: ' + ' '.join(packages))
     if os.system('pip install -U ' + ' '.join(packages)):
