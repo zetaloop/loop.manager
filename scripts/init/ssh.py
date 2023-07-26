@@ -58,12 +58,13 @@ with open(ssh, 'w') as f:
 print(f'Show diff... {ssh} <<< {ssh}_{time}.bak')
 os.system(f'diff {ssh} {ssh}_{time}.bak')
 
-print('Restarting sshd...')
+print('\nRestarting sshd...')
 if os.system('systemctl restart sshd'):
-    print('Restarting failed! Restoring original config...')
+    print('\nRestarting failed! Restoring original config...')
     print(f'mv {ssh} >>> {ssh}_{time}_fail.bak')
     os.system(f'mv {ssh} {ssh}_{time}_fail.bak')
     print(f'mv {ssh} <<< {ssh}_{time}.bak')
     os.system(f'mv {ssh}_{time}.bak {ssh}')
-    print('Restarting sshd...')
-    os.system('systemctl restart sshd')
+    print('\nRestarting sshd...')
+    if os.system('systemctl restart sshd'):
+        print('\nError in original config!')
