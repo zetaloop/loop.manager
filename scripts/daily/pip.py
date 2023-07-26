@@ -26,7 +26,7 @@ while True:
         erri = packages.index(err)
         print('And updating: ' + ' '.join(packages[:erri])
         if os.system('pip install -U ' + ' '.join(packages[:erri])):
-            print('Another error has occured. Please solve the problem manually. Auto update stopped.)
+            print('Another error has occured. Please solve the problem manually. Auto update stopped.')
             exit()
         packages = packages[erri + 1:]
     else:
