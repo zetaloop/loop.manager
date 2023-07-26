@@ -15,14 +15,14 @@ print('-' * 16)
 
 packages = allpackages
 while True:
-    print('Try updating: ' + ' '.join(packages)
-    if os.system('pip install -U ' + ' '.join(packages):
+    print('Try updating: ' + ' '.join(packages))
+    if os.system('pip install -U ' + ' '.join(packages)):
         print('An error has occurred, checking...')
         pipcmd = 'pip install -U'.split() + packages
         result = subprocess.run(pipcmd, capture_output=True, text=True).stdout
         err = [i for i in result.split('\n') if i.startswith('Collecting')][-1].split(' ')[1]
         errorpackages += err
-        print('Try ignoring package: ' + ' '.join(errorpackages)
+        print('Try ignoring package: ' + ' '.join(errorpackages))
         erri = packages.index(err)
         print('And updating: ' + ' '.join(packages[:erri])
         if os.system('pip install -U ' + ' '.join(packages[:erri])):
