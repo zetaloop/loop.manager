@@ -59,9 +59,7 @@ print(f'Show diff... {ssh} <<< {ssh}_{time}.bak')
 os.system(f'diff {ssh} {ssh}_{time}.bak')
 
 print('Restarting sshd...')
-try:
-    os.system('systemctl restart sshd')
-except:
+if os.system('systemctl restart sshd'):
     print('Restarting failed! Restoring original config...')
     print(f'mv {ssh} >>> {ssh}_{time}_fail.bak')
     os.system(f'mv {ssh} {ssh}_{time}_fail.bak')
