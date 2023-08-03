@@ -1,7 +1,10 @@
 # Python pip packages update
 
-print('Checking pip outdated...')
+print('Updating pip...')
 import subprocess, json, os
+os.system('python3 -m pip install -U pip')
+
+print('Checking pip outdated...')
 pipcmd = ["pip", "list", "--outdated", "--format", "json"]
 jsondata = json.loads(subprocess.run(pipcmd, capture_output=True, text=True).stdout)
 allpackages = [pkg['name'] for pkg in jsondata]
