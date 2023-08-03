@@ -28,7 +28,7 @@ def errorhandler(error_pack):
     packs = packs[error + 1:]
 
 def check(result):
-    packs = [i for i in result.split('\n') if i.startswith('Collecting')]
+    packs = [i for i in result if i.startswith('Collecting')]
     if not packs:
         print('Unexpected error!')
         exit()
