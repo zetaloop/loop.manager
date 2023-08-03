@@ -28,11 +28,11 @@ def errorhandler(error_pack):
     packs = packs[error + 1:]
 
 def check(result):
-    packs = [i for i in result if i.startswith('Collecting')]
-    if not packs:
+    checkpacks = [i for i in result if i.startswith('Collecting') and i in allpacks]
+    if not checkpacks:
         print('Unexpected error!')
         exit()
-    error_pack = packs[-1].split(' ')[1]
+    error_pack = checkpacks[-1].split(' ')[1]
     if [i for i in result if i.startswith('ERROR: Cannot uninstall')]:
         print('Uninstall failed, try force install: ' + error_pack)
         if not os.system('pip install -U --ignore-installed ' + error_pack):
