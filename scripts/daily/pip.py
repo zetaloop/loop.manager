@@ -21,7 +21,7 @@ error_packs = []
 
 def errorhandler(error_pack):
     global packs
-    error = packs.index(error)
+    error = packs.index(error_pack)
     print('Try ignoring pack: ' + ' '.join(error_pack))
     error_packs.append(error_pack)
     mainloop(packs[:error])
