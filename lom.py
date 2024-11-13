@@ -1,18 +1,17 @@
 import os
 import subprocess
-import conf
 
 VERSION = '1.0'
 
-def scan_subdirectories(directory):
-    subdirectories = []
-    for item in os.listdir(directory):
-        item_path = os.path.join(directory, item)
-        if os.path.isdir(item_path):
-            subdirectories.append(item)
-    return sorted(subdirectories)
+def scan_dir(directory):
+    subdirs = []
+    for i in os.listdir(directory):
+        ipath = os.path.join(directory, i)
+        if os.path.isdir(ipath):
+            subdirs.append(i)
+    return sorted(subdirs)
 
-def scan_scripts(directory):
+def scan_script(directory):
     scripts = []
     for root, dirs, files in os.walk(directory):
         for file in files:
@@ -22,12 +21,13 @@ def scan_scripts(directory):
 
 def execute_script(script_path):
     if script_path.endswith('.py'):
-        host = 'python3'
+        env = os.environ.copy()
+        env['PYTHONPATH'] = '.'
+        subprocess.run(['python3', script_path], check=True, env=env)
     elif script_path.endswith('.sh'):
-        host = 'bash'
-    subprocess.run([host, script_path], check=True)
+        subprocess.run(['bash', script_path], check=True)
 
-def change_to_script_directory():
+def cdself():
     script_path = os.path.realpath(__file__)
     script_dir = os.path.dirname(script_path)
     os.chdir(script_dir)
@@ -42,17 +42,15 @@ def ln(path):
 
 def main():
     print('\n' + '=' * 16 + f'[Loop Manager v{VERSION}]' + '=' * 16)
-    last = conf.get('last', None)
-    print('Last use:', last, '\n')
-    change_to_script_directory()
-    catagories = scan_subdirectories('scripts')
+    cdself()
+    catagories = scan_dir('scripts')
     print('\n'.join(f'{index}: {cat}' for index, cat in enumerate(catagories)))
     try:
         catagory = catagories[int(input('[Catagory?] '))]
         print()
     except:
         print('No.Exit.')
-    scripts = scan_scripts(os.path.join('scripts', catagory))
+    scripts = scan_script(os.path.join('scripts', catagory))
     print('\n'.join(f'{index}: {os.path.split(path)[1]}{ln(path)}' for index, path in enumerate(scripts)) if scripts else '(None)')
     try:
         script = scripts[int(input('[Script?] '))]
@@ -61,8 +59,6 @@ def main():
         print('No.Exit.')
         exit()
     print('>>> ' + script)
-    conf.data['last'] = catagory + '/' + os.path.split(script)[1]
-    conf.save()
     execute_script(script)
     print('=' * 16 + '[Loop Manager Execution Over]' + '=' * 16)
 
